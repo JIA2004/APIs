@@ -14,6 +14,8 @@ import java.util.List;
 @Builder
 public class Role {
 
+    public static final String USER = null;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
