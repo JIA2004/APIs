@@ -1,6 +1,5 @@
-package com.autoDealership.security.user;
+package com.uade.tpo.demo.entity;
 
-import com.autoDealership.security.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
