@@ -27,5 +27,5 @@ public class Category {
     private String description;
 
     @OneToOne(mappedBy = "category")
-    private Product product;
+    private Vehicle product;
 }

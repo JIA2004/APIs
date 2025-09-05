@@ -1,63 +1,67 @@
-package com.uade.tpo.demo.entity;
+package com.autoDealership.security.user;
 
-import java.util.Collection;
-import java.util.List;
-
+import com.autoDealership.security.role.Role;
+import jakarta.persistence.*;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class User implements UserDetails {
+@Table(name = "cliente") // nombre alineado al DER
+public class User implements UserDetails, Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer idCliente;
 
-    private String email;
+    @Column(nullable = false, length = 50)
+    private String nombre;
 
-    private String name;
-
-    private String password;
-
-    private String firstName;
+    @Column(nullable = false, length = 50)
+    private String apellido;
 
     @Column(nullable = false, unique = true)
-    private String lastName;
+    private String documento;
 
-    @OneToMany(mappedBy = "user")
-    private List<Order> orders;
+    @Column(nullable = false, unique = true, length = 50)
+    private String correo;
+
+    @Column(nullable = false)
+    private String telefono;
+
+    @Column(nullable = false)
+    private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 
+    // Métodos de UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
     public String getUsername() {
-        return email;
+        return correo; // usamos correo como username
     }
 
     @Override
