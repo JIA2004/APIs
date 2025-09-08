@@ -1,6 +1,6 @@
 package com.uade.tpo.demo.controllers;
 
-import com.uade.tpo.demo.entity.Vehicle;
+import com.uade.tpo.demo.entity.Vehiculo;
 import com.uade.tpo.demo.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,18 +15,18 @@ public class VehicleController {
     private VehicleService vehicleService;
 
     @PostMapping
-    public ResponseEntity<Vehicle> createVehicle(@RequestBody Vehicle vehicle) {
-        Vehicle savedVehicle = vehicleService.saveVehicle(vehicle);
+    public ResponseEntity<Vehiculo> createVehicle(@RequestBody Vehiculo vehicle) {
+        Vehiculo savedVehicle = vehicleService.saveVehicle(vehicle);
         return new ResponseEntity<>(savedVehicle, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public List<Vehicle> getAllVehicles() {
+    public List<Vehiculo> getAllVehicles() {
         return vehicleService.getAllVehicles();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Vehicle> getVehicleById(@PathVariable Long id) {
+    public ResponseEntity<Vehiculo> getVehicleById(@PathVariable Long id) {
         return vehicleService.getVehicleById(id)
                 .map(vehicle -> ResponseEntity.ok(vehicle))
                 .orElse(ResponseEntity.notFound().build());

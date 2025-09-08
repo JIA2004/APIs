@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Optional;
-import com.uade.tpo.demo.entity.Vehicle;
+import com.uade.tpo.demo.entity.Vehiculo;
 import com.uade.tpo.demo.repository.VehicleRepository;
 
 
@@ -13,15 +13,15 @@ public class VehicleService implements IVehicleService {
     @Autowired
     private VehicleRepository vehicleRepository;
 
-    public Vehicle saveVehicle(Vehicle vehicle) {
+    public Vehiculo saveVehicle(Vehiculo vehicle) {
         return vehicleRepository.save(vehicle);
     }
 
-    public List<Vehicle> getAllVehicles() {
+    public List<Vehiculo> getAllVehicles() {
         return vehicleRepository.findAll();
     }
 
-    public Optional<Vehicle> getVehicleById(Long id) {
+    public Optional<Vehiculo> getVehicleById(Long id) {
         return vehicleRepository.findById(id);
     }
 
