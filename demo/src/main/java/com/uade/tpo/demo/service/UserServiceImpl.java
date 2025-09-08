@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     public User updateUser(Long id, User userDetails) {
         User user = userRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Usuario no disponible"));
-        user.setName(userDetails.getName());
+        user.setUsername(userDetails.getUsername());
         user.setLastName(userDetails.getLastName());
         user.setDocumento(userDetails.getDocumento());
         user.setEmail(userDetails.getEmail());
