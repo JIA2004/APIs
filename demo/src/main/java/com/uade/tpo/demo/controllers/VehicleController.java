@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/vehicles")
 public class VehicleController {
+    
     @Autowired
     private VehicleService vehicleService;
 
@@ -33,12 +34,12 @@ public class VehicleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Vehicle> updateVehicle(@PathVariable Long id, @RequestBody Vehicle vehicleDetails) {
+    public ResponseEntity<Vehiculo> updateVehicle(@PathVariable Long id, @RequestBody Vehiculo vehicleDetails) {
         return vehicleService.getVehicleById(id).map(vehicle -> {
             vehicle.setMarca(vehicleDetails.getMarca());
             vehicle.setModelo(vehicleDetails.getModelo());
             vehicle.setPrecioBase(vehicleDetails.getPrecioBase());
-            Vehicle updatedVehicle = vehicleService.saveVehicle(vehicle);
+            Vehiculo updatedVehicle = vehicleService.saveVehicle(vehicle);
             return ResponseEntity.ok(updatedVehicle);
         }).orElse(ResponseEntity.notFound().build());
     }

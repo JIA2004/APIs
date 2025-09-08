@@ -19,7 +19,7 @@ public class Carrito {
 
     @ManyToOne
     @JoinColumn(name = "idCliente", nullable = false)
-    private Cliente cliente;
+    private User cliente;
 
     @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CarritoVehiculo> carritoVehiculos;
