@@ -9,7 +9,7 @@ import com.uade.tpo.demo.repository.VehicleRepository;
 
 
 @Service
-public class VehicleService {
+public class VehicleService implements IVehicleService {
     @Autowired
     private VehicleRepository vehicleRepository;
 
