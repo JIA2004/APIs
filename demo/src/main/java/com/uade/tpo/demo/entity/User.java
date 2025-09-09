@@ -18,41 +18,45 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import jakarta.persistence.Table;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "users")
 public class User implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCliente;
 
-    
-    @Column(nullable = false)
-    private String username;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "idCliente")
+  private Long idCliente;
 
-    @Column(nullable = false)
-    private String password;
+  @Column(name = "username", nullable = false)
+  private String username;
 
-    @Column(nullable = false)
-    private String firstName;
+  @Column(name = "password", nullable = false)
+  private String password;
 
-    @Column(nullable = false)
-    private String lastName;
+  @Column(name = "firstName", nullable = false)   // <- CLAVE
+  private String firstName;
 
-    @Column(nullable = false, unique = true)
-    private int documento; 
-    
-    @Column(nullable = false, unique = true)
-    private int telefono;
+  @Column(name = "lastName", nullable = false)    // <- CLAVE
+  private String lastName;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+  @Column(name = "documento", nullable = false, unique = true)
+  private int documento;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+  @Column(name = "telefono", nullable = false, unique = true)
+  private int telefono;
+
+  @Column(name = "email", nullable = false, unique = true)
+  private String email;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "role")
+  private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
