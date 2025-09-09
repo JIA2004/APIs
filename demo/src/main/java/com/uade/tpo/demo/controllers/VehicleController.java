@@ -39,6 +39,11 @@ public class VehicleController {
             vehicle.setMarca(vehicleDetails.getMarca());
             vehicle.setModelo(vehicleDetails.getModelo());
             vehicle.setPrecioBase(vehicleDetails.getPrecioBase());
+            vehicle.setColor(vehicleDetails.getColor());
+            vehicle.setNumeroChasis(vehicleDetails.getNumeroChasis());
+            vehicle.setNumeroMotor(vehicleDetails.getNumeroMotor());
+            vehicle.setTipoVehiculo(vehicleDetails.getTipoVehiculo());
+            vehicle.setDisponible(vehicleDetails.getDisponible());
             Vehiculo updatedVehicle = vehicleService.saveVehicle(vehicle);
             return ResponseEntity.ok(updatedVehicle);
         }).orElse(ResponseEntity.notFound().build());
