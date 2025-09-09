@@ -28,35 +28,35 @@ import jakarta.persistence.Table;
 @Table(name = "users")
 public class User implements UserDetails {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "idCliente")
-  private Long idCliente;
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Column(name = "idCliente")
+private Long idCliente;
 
-  @Column(name = "username", nullable = false)
-  private String username;
+@Column(name = "username", nullable = false)
+private String username;
 
-  @Column(name = "password", nullable = false)
-  private String password;
+@Column(name = "password", nullable = false)
+private String password;
 
-  @Column(name = "firstName", nullable = false)   // <- CLAVE
-  private String firstName;
+@Column(name = "firstName", nullable = false)   // <- CLAVE
+private String firstName;
 
-  @Column(name = "lastName", nullable = false)    // <- CLAVE
-  private String lastName;
+@Column(name = "lastName", nullable = false)    // <- CLAVE
+private String lastName;
 
-  @Column(name = "documento", nullable = false, unique = true)
-  private int documento;
+@Column(name = "documento", nullable = false, unique = true)
+private int documento;
 
-  @Column(name = "telefono", nullable = false, unique = true)
-  private int telefono;
+@Column(name = "telefono", nullable = false, unique = true)
+private int telefono;
 
-  @Column(name = "email", nullable = false, unique = true)
-  private String email;
+@Column(name = "email", nullable = false, unique = true)
+private String email;
 
-  @Enumerated(EnumType.STRING)
-  @Column(name = "role")
-  private Role role;
+@Enumerated(EnumType.STRING)
+@Column(name = "role")
+private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

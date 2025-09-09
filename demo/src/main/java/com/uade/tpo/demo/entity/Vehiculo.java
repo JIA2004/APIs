@@ -19,14 +19,17 @@ public class Vehiculo {
     private String modelo;
     private String color;
 
-    @Column(unique = true, nullable = false)
+
+    @Column(name = "numero_chasis", unique = true, nullable = false)
     private Integer numeroChasis;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "numero_motor", unique = true, nullable = false)
     private Integer numeroMotor;
 
+    @Column(name = "precio_base")
     private Float precioBase;
 
+    @Column(name = "tipo_vehiculo")
     private String tipoVehiculo;
 
     private Boolean disponible;

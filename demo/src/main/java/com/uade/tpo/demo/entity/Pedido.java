@@ -15,23 +15,25 @@ public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idPedido") // nombre en snake_case
     private Long idPedido;
 
-    @Column(nullable = false)
+    @Column(name = "fechaDeCreacion", nullable = false)
     private LocalDateTime fechaDeCreacion;
 
-    @Column(nullable = false)
+    @Column(name = "costoTotal", nullable = false)
     private Double costoTotal;
 
     @ManyToOne
-    @JoinColumn(name = "idCliente", nullable = false)
+    @JoinColumn(name = "idCliente", nullable = false) // FK a users
     private User cliente;
 
     @ManyToOne
-    @JoinColumn(name = "idVehiculo", nullable = false)
+    @JoinColumn(name = "idVehiculo", nullable = false) // FK a vehicles
     private Vehiculo vehiculo;
 
     @ManyToOne
-    @JoinColumn(name = "idFormaDePago", nullable = false)
+    @JoinColumn(name = "idFormadePago", nullable = false) // FK a formas_de_pago
+    @Enumerated(EnumType.STRING)
     private FormaDePago formaDePago;
 }
