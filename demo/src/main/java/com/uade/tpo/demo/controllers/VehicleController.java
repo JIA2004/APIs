@@ -5,12 +5,14 @@ import com.uade.tpo.demo.service.VehicleService;
 
 import io.jsonwebtoken.io.IOException;
 
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -106,14 +108,52 @@ public class VehicleController {
     @PutMapping("/{id}/imagen")
     public ResponseEntity<Vehiculo> updateVehicleImage(
             @PathVariable Long id,
-            @RequestParam("imagenUrl") String imagenUrl) {
+            @RequestParam("imagen") MultipartFile imagen) throws java.io.IOException {
 
         return vehicleService.getVehicleById(id).map(vehicle -> {
-            vehicle.setImagenUrl(imagenUrl);
-            Vehiculo updatedVehicle = vehicleService.saveVehicle(vehicle);
-            return ResponseEntity.ok(updatedVehicle);
-        }).orElse(ResponseEntity.notFound().build());
+            try {
+                vehicle.setImagen(imagen.getBytes());
+                Vehiculo updatedVehicle = vehicleService.saveVehicle(vehicle);
+                return ResponseEntity.ok(updatedVehicle);
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).<Vehiculo>build();
+            }
+        }).orElse(ResponseEntity.notFound().<Vehiculo>build());
     }
 
+    @PostMapping("/{id}/uploadImage")
+    public ResponseEntity<String> uploadImage(@PathVariable Long id,
+                                            @RequestParam("image") MultipartFile file) {
+        try {
+            Optional<Vehiculo> optionalVehicle = vehicleService.getVehicleById(id);
+            if (optionalVehicle.isPresent()) {
+                Vehiculo vehicle = optionalVehicle.get();
+                vehicle.setImagen(file.getBytes()); // guardar en BD
+                vehicleService.saveVehicle(vehicle);
+                return ResponseEntity.ok("Imagen subida correctamente.");
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al subir la imagen: " + e.getMessage());
+        }
+    }
 
+    @GetMapping("/{id}/image")
+    public ResponseEntity<String> getImage(@PathVariable Long id) {
+        Optional<Vehiculo> optionalVehicle = vehicleService.getVehicleById(id);
+        if (optionalVehicle.isPresent()) {
+            Vehiculo vehicle = optionalVehicle.get();
+            byte[] imageBytes = vehicle.getImagen();
+            if (imageBytes != null) {
+                String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+                return ResponseEntity.ok(base64Image);
+            } else {
+                return ResponseEntity.noContent().build();
+            }
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

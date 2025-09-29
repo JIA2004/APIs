@@ -15,9 +15,6 @@ public class Vehiculo {
     @Column(name = "imagen", columnDefinition = "LONGBLOB")
     private byte[] imagen;
 
-    @Column(name = "imagen_url")
-    private String imagenUrl;
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
