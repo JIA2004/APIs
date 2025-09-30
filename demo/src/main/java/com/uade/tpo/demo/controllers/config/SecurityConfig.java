@@ -1,4 +1,4 @@
-package com.uade.tpo.demo.config;
+package com.uade.tpo.demo.controllers.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
