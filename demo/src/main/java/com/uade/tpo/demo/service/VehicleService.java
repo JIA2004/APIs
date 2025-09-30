@@ -13,18 +13,22 @@ public class VehicleService implements IVehicleService {
     @Autowired
     private VehicleRepository vehicleRepository;
 
+    @Override
     public Vehiculo saveVehicle(Vehiculo vehicle) {
         return vehicleRepository.save(vehicle);
     }
 
+    @Override
     public List<Vehiculo> getAllVehicles() {
         return vehicleRepository.findAll();
     }
 
+    @Override
     public Optional<Vehiculo> getVehicleById(Long id) {
         return vehicleRepository.findById(id);
     }
 
+    @Override
     public void deleteVehicle(Long id) {
         vehicleRepository.deleteById(id);
     }

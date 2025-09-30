@@ -8,4 +8,4 @@ import com.uade.tpo.demo.entity.Vehiculo;
 
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehiculo, Long> {
-}    
+}
