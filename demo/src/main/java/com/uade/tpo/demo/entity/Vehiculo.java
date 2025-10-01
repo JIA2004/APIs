@@ -1,7 +1,11 @@
 package com.uade.tpo.demo.entity;
 
+import com.uade.tpo.demo.categories.Category;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "vehiculos")
@@ -11,11 +15,6 @@ import lombok.*;
 @AllArgsConstructor
 public class Vehiculo {
 
-    @Lob
-    @Column(name = "imagen", columnDefinition = "LONGBLOB")
-    private byte[] imagen;
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idVehiculo;
@@ -23,7 +22,6 @@ public class Vehiculo {
     private String marca;
     private String modelo;
     private String color;
-
 
     @Column(name = "numero_chasis", unique = true, nullable = false)
     private Integer numeroChasis;
@@ -38,4 +36,13 @@ public class Vehiculo {
     private String tipoVehiculo;
 
     private Boolean disponible;
+
+    @Lob
+    @Column(name = "imagen", columnDefinition = "LONGBLOB")
+    private byte[] imagen;
+
+    // 🔹 Relación con Category
+    @ManyToOne(fetch = FetchType.EAGER) 
+    @JoinColumn(name = "category_id", nullable = false) // columna FK en la tabla vehiculos
+    private Category category;
 }
